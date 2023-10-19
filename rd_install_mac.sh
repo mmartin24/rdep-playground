@@ -3,10 +3,9 @@
 set -e
 
 echo -e '\n ---------- REMOVING PREVIOUS VERSIONS OF RANCHER DESKTOP ------------ \n'
-./rd_uninstall.sh
-# APP="Rancher Desktop.app"
-# rm -rf "$HOME/Applications/$APP"
-# rm -rf $HOME/.rd
+APP="Rancher Desktop.app"
+rm -rf "$HOME/Applications/$APP"
+rm -rf $HOME/.rd
 
 
 echo -e '\n ---------- DOWLOADING RANCHER DESKTOP ------------ \n'

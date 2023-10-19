@@ -16,7 +16,7 @@ unzip -o "/tmp/$FILE" "$APP/*" -d $HOME/Applications >/dev/null
 
 echo -e '\n ---------- INSTALLING RANCHER DESKTOP ------------ \n'
 open $HOME/Applications/Rancher\ Desktop.app/Contents/MacOS/Rancher\ Desktop 
-sleep 20
+sleep 40
 
 echo -e '\n ---------- STARTING RANCHER DESKTOP WITH RDCTL ------------ \n'
 RD_CONTAINER_ENGINE=moby

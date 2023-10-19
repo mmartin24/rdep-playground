@@ -56,7 +56,7 @@ jobs:
           brew install kubernetes-cli helm coreutils
 
       - name: Installation rancher-desktop-epinio-macos
-        env:
+        # env:
           # # REGEX: Scenario4
           # REGISTRY_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
           # REGISTRY_PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}

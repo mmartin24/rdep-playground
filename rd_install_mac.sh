@@ -28,7 +28,7 @@ args=(
         --kubernetes.enabled=true
         --application.admin-access=false
         --application.path-management-strategy rcfiles
-        --virtual-machine.memory-in-gb 6
+        --virtual-machine.memory-in-gb 2
     )
 rdctl start "${args[@]}" "$@" &
 rdctl set --application.path-management-strategy manual

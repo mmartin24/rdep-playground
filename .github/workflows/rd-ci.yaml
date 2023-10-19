@@ -73,4 +73,4 @@ jobs:
         run: |
           # echo "System Domain: $AWS_DOMAIN"
           # export KUBECONFIG=${{ env.KUBECONFIG }}
-          full_rancherddesktop_epinio.sh
+          ../../full_rancherddesktop_epinio.sh

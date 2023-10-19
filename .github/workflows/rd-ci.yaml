@@ -18,7 +18,7 @@ on:
 # env:
 #   KUBECONFIG: ${{ github.workspace }}/kubeconfig-epinio-ci
 
-# jobs:
+jobs:
 #   linter:
 #     runs-on: ubuntu-latest
 

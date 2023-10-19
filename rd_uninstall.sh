@@ -9,7 +9,7 @@ rdctl shutdown
 # Remove Rancher
 echo -e '\n ---------- DELETING RANCHER DESKTOP ------------ \n'
 rm -rf $HOME/Applications/Rancher\ Desktop.app
-wait 5
+# wait 5
 
 # Remove .rd directory
 echo -e '\n ---------- DELETING '.rd' directory ------------ \n'

@@ -28,11 +28,8 @@ args=(
         --kubernetes.enabled=true
         --application.admin-access=false
         --application.path-management-strategy rcfiles
-        --virtual-machine.memory-in-gb 2
+        --virtual-machine.memory-in-gb 1
     )
 rdctl start "${args[@]}" "$@" &
 rdctl set --application.path-management-strategy manual
 rdctl set --application.path-management-strategy rcfiles
-
-
-# Path to rdctl: /Users/mamartin/.rd/bin

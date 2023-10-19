@@ -13,4 +13,4 @@ wait 5
 
 # Remove .rd directory
 echo -e '\n ---------- DELETING '.rd' directory ------------ \n'
-rm -rf $HOME/Applications/Rancher\ Desktop.app
+rm -rf $HOME/.rd

@@ -73,4 +73,5 @@ jobs:
         run: |
           # echo "System Domain: $AWS_DOMAIN"
           # export KUBECONFIG=${{ env.KUBECONFIG }}
+          export PATH=$HOME/.rd/bin:$PATH
           ./full_rancherddesktop_epinio.sh

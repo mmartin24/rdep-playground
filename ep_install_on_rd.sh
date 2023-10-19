@@ -11,7 +11,8 @@ mv epinio /usr/local/bin/epinio
 
 # Set context to Rancher Desktop
 echo -e '\n ---------- SETTING CONTEXT to Rancher Desktop ------------ \n'
-kubectl config set-context rancher-desktop
+kubectl config set-context rancher-desktop && kubectl config use-context rancher-desktop
+sleep 5
 
 ## Install Epino
 echo -e '\n ---------- INSTALL CERT MANAGER ------------ \n'

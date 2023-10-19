@@ -9,6 +9,10 @@ chmod +x epinio
 # sudo mv epinio /usr/local/bin/epinio
 mv epinio /usr/local/bin/epinio
 
+# Set context to Rancher Desktop
+echo -e '\n ---------- SETTING CONTEXT to Rancher Desktop ------------ \n'
+kubectl config set-context rancher-desktop
+
 ## Install Epino
 echo -e '\n ---------- INSTALL CERT MANAGER ------------ \n'
 kubectl create namespace cert-manager 
@@ -36,7 +40,7 @@ APPNAME=go-app
 epinio push --name $APPNAME --git https://github.com/epinio/example-go,main --env='BP_KEEP_FILES=static/*'
 
 ## Check app returns a 200 otherwise exit
-CURLAPP=$(curl -fkLI "https://${APPNAME}.${MYEPINIODOMAIN}.niEp.io")
+CURLAPP=$(curl -fkLI "https://${APPNAME}.${MYEPINIODOMAIN}.nip.io")
 APPRESPONSE=$(echo $CURLAPP 2>/dev/null | head -n 1 | cut -d$' ' -f2)
 
 echo $CURLAPP

@@ -24,16 +24,16 @@ echo -e "\n ---------- Return code is $? ------------ \n"
 sleep 40
 
 # echo -e '\n ---------- STARTING RANCHER DESKTOP WITH RDCTL ------------ \n'
-# RD_CONTAINER_ENGINE=moby
+RD_CONTAINER_ENGINE=moby
 
-# args=(
-#         --application.updater.enabled=false
-#         --container-engine.name="$RD_CONTAINER_ENGINE"
-#         --kubernetes.enabled=true
-#         --application.admin-access=false
-#         --application.path-management-strategy rcfiles
-#         --virtual-machine.memory-in-gb 1
-#     )
-# rdctl start "${args[@]}" "$@" &
-# rdctl set --application.path-management-strategy manual
-# rdctl set --application.path-management-strategy rcfiles
+args=(
+        --application.updater.enabled=false
+        --container-engine.name="$RD_CONTAINER_ENGINE"
+        --kubernetes.enabled=true
+        --application.admin-access=false
+        --application.path-management-strategy rcfiles
+        # --virtual-machine.memory-in-gb 1
+    )
+rdctl start "${args[@]}" "$@" &
+rdctl set --application.path-management-strategy manual
+rdctl set --application.path-management-strategy rcfiles

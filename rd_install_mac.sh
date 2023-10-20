@@ -37,7 +37,7 @@ args=(
     )
 echo -e '\n ---------- Applying "rdctl start..." ------------ \n'
 rdctl start "${args[@]}" "$@" &
-echo -e '\n ---------- Applying "--application.path-management-strategy manual..." ------------ \n'
-rdctl set --application.path-management-strategy manual
-echo -e '\n ---------- Applying "--application.path-management-strategy rcfiles..." ------------ \n'
-rdctl set --application.path-management-strategy rcfiles
+# echo -e '\n ---------- Applying "--application.path-management-strategy manual..." ------------ \n'
+# rdctl set --application.path-management-strategy manual
+# echo -e '\n ---------- Applying "--application.path-management-strategy rcfiles..." ------------ \n'
+# rdctl set --application.path-management-strategy rcfiles

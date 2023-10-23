@@ -51,7 +51,7 @@ epinio settings update-ca
 
 ## Push Jemkins app
 APPNAME=jenkins-app
-epinio app push --name jenkins --container-image-url jenkins/jenkins
+epinio app push --name $APPNAME --container-image-url jenkins/jenkins
 
 ## Check app returns a 200 otherwise exit
 CURLAPP=$(curl -fkLI "https://${APPNAME}.${MYEPINIODOMAIN}.nip.io")

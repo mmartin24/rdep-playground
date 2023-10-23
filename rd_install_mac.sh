@@ -41,7 +41,7 @@ rdctl start "${args[@]}" "$@" &
 
 # Script to wait for right conditions to be ready prior proceeding with rdctl commands
 echo -e '\n ---------- Checking k8s resources are ready ------------ \n'
-max_attempts=30
+max_attempts=40
 attempt=0
 K8S_API_EP=https://127.0.0.1:6443
 
@@ -57,10 +57,10 @@ while [ "$attempt" -lt "$max_attempts" ]; do
 done
 
 if [ "$attempt" -ge "$max_attempts" ]; then
-  echo "Kuberenetes API unreachable after $max_attempts attempts. Exiting."; exit 5
+  echo "Kubernetes API unreachable after $max_attempts attempts. Exiting."; exit 5
 fi
 
-kubectl wait -n kube-system --for=condition=Ready node --all --timeout=180s
+kubectl wait --for=condition=Ready node --all --timeout=180s
 
 echo -e '\n ---------- Sleeping 40 seconds before further set on rdctl commands ------------ \n'
 sleep 40

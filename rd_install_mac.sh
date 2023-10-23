@@ -63,7 +63,7 @@ fi
 echo -e '\n ---------- Sleeping 15 seconds before kubectl check on ready conditions ------------ \n'
 sleep 25
 kubectl wait --for=condition=Ready node --all --timeout=180s
-kubectl wait --for=condition=Available --timeout=120s deployments --all -n kube-system
+# kubectl wait --for=condition=Available --timeout=120s deployments --all -n kube-system
 
 echo -e '\n ---------- Sleeping 40 seconds before further set on rdctl commands ------------ \n'
 # sleep 40

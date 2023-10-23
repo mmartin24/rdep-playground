@@ -32,9 +32,11 @@ echo -e '\n ---------- INSTALLING EPINIO ------------ \n'
 helm repo add epinio https://epinio.github.io/helm-charts 
 #MYEPINIODOMAIN=`kubectl get svc -n kube-system traefik | awk '{print $4}' | tail --lines=+2` 
 MYEPINIODOMAIN='127.0.0.1'
-helm upgrade --install --wait epinio -n epinio --create-namespace epinio/epinio \
+helm upgrade --install epinio -n epinio --create-namespace epinio/epinio \
     --set global.domain=${MYEPINIODOMAIN}.nip.io \
     --set server.disableTracking="true" 
+
+ubectl wait --for=condition=Ready --timeout=180s pods --all -n epinio
 
 ## Check it can login
 echo -e '\n ---------- CHECKING EPINIO LOGIN ------------ \n'
@@ -48,6 +50,7 @@ epinio settings update-ca
 # epinio push --name $APPNAME --git https://github.com/epinio/example-go,main --env='BP_KEEP_FILES=static/*'
 
 ## Push Jemkins app
+APPNAME=jenkins-app
 epinio app push --name jenkins --container-image-url jenkins/jenkins
 
 ## Check app returns a 200 otherwise exit

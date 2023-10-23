@@ -31,7 +31,7 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          brew install kubernetes-cli helm coreutils curl-openssl
+          brew install kubernetes-cli helm coreutils
 
       - name: Installation rancher-desktop-epinio-macos
         # env:

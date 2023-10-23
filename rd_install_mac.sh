@@ -41,7 +41,7 @@ rdctl start "${args[@]}" "$@" &
 
 # Script to wait for right conditions to be ready prior proceeding with rdctl commands
 echo -e '\n ---------- Checking k8s resources are ready ------------ \n'
-max_attempts=40
+max_attempts=200
 attempt=0
 K8S_API_EP=https://127.0.0.1:6443
 

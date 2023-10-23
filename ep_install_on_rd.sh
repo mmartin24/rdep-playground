@@ -56,7 +56,8 @@ epinio push --name $APPNAME --git https://github.com/epinio/example-go,main --en
 # epinio app push --name $APPNAME --container-image-url jenkins/jenkins
 
 echo -e '\n ---------- Waiting for condition available in workspace before curl on app ------------ \n'
-kubectl wait --for=condition=Available --timeout=120s deployment --all --namespace workspace
+# kubectl wait --for=condition=Available --timeout=120s deployment --all --namespace workspace
+Sleep 40
 
 ## Check app returns a 200 otherwise exit
 CURLAPP=$(curl -fkLI "https://${APPNAME}.${MYEPINIODOMAIN}.nip.io")

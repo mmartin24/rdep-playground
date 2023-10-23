@@ -38,6 +38,30 @@ args=(
     )
 echo -e '\n ---------- Applying "rdctl start..." ------------ \n'
 rdctl start "${args[@]}" "$@" &
+
+# Script to wait for right conditions to be ready prior proceeding with rdctl commands
+echo -e '\n ---------- Checking k8s resources are ready ------------ \n'
+max_attempts=30
+attempt=0
+K8S_API_EP=https://127.0.0.1:6443
+
+while [ "$attempt" -lt "$max_attempts" ]; do
+  if curl -Isk $K8S_API_EP | head -n 1 | grep -q "401"; then
+    echo "K8s API is available"
+    break
+  else
+    echo "K8s API NOT available (Attempt: $attempt/$max_attempts)"
+    attempt=$((attempt+1))
+  fi
+  sleep 5
+done
+
+if [ "$attempt" -ge "$max_attempts" ]; then
+  echo "Kuberenetes API unreachable after $max_attempts attempts. Exiting."; exit 5
+fi
+
+kubectl wait -n kube-system --for=condition=Ready node --all --timeout=180s
+
 echo -e '\n ---------- Sleeping 40 seconds before further set on rdctl commands ------------ \n'
 sleep 40
 echo -e '\n ---------- Applying "--application.path-management-strategy manual..." ------------ \n'

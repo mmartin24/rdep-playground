@@ -41,36 +41,70 @@ on:
 #         run: |
 #           echo "`pwd`/output/bin" >> $GITHUB_PATH
 
-  rancher-desktop-epinio-macos:
-    runs-on: macos-latest
+  # rancher-desktop-epinio-macos:
+  #   runs-on: macos-latest
 
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          submodules: recursive
-          fetch-depth: 0
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v3
+  #       with:
+  #         submodules: recursive
+  #         fetch-depth: 0
 
-      - name: Install Dependencies
-        run: |
-          brew install kubernetes-cli helm coreutils
+  #     - name: Install Dependencies
+  #       run: |
+  #         brew install kubernetes-cli helm coreutils
 
-      - name: Installation rancher-desktop-epinio-macos
-        env:
-          # # REGEX: Scenario4
-          # REGISTRY_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-          # REGISTRY_PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}
-          # AWS_ZONE_ID: ${{ secrets.AWS_ZONE_ID }}
-          # AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          # AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          # # Use a random host name, so we don't collide with our workflows on EKS
-          # AWS_DOMAIN: id${{ steps.create-cluster.outputs.ID }}-${{ secrets.AWS_DOMAIN }}
-          # EPINIO_SYSTEM_DOMAIN: id${{ steps.create-cluster.outputs.ID }}-${{ secrets.AWS_DOMAIN }}
-          # EPINIO_TIMEOUT_MULTIPLIER: 3
-          # INGRESS_CONTROLLER: nginx
-          # # EXTRAENV_NAME: SESSION_KEY
-          # # EXTRAENV_VALUE: 12345
-        run: |
-          # echo "System Domain: $AWS_DOMAIN"
-          # export KUBECONFIG=${{ env.KUBECONFIG }}
-          full_rancherddesktop_epinio.sh
+  #     - name: Installation rancher-desktop-epinio-macos
+  #       env:
+  #         # # REGEX: Scenario4
+  #         # REGISTRY_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+  #         # REGISTRY_PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}
+  #         # AWS_ZONE_ID: ${{ secrets.AWS_ZONE_ID }}
+  #         # AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  #         # AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  #         # # Use a random host name, so we don't collide with our workflows on EKS
+  #         # AWS_DOMAIN: id${{ steps.create-cluster.outputs.ID }}-${{ secrets.AWS_DOMAIN }}
+  #         # EPINIO_SYSTEM_DOMAIN: id${{ steps.create-cluster.outputs.ID }}-${{ secrets.AWS_DOMAIN }}
+  #         # EPINIO_TIMEOUT_MULTIPLIER: 3
+  #         # INGRESS_CONTROLLER: nginx
+  #         # # EXTRAENV_NAME: SESSION_KEY
+  #         # # EXTRAENV_VALUE: 12345
+  #       run: |
+  #         # echo "System Domain: $AWS_DOMAIN"
+  #         # export KUBECONFIG=${{ env.KUBECONFIG }}
+  #         full_rancherddesktop_epinio.sh
+
+    rancher-desktop-epinio-macos:
+      runs-on: macos-latest
+
+      steps:
+        - name: Checkout
+          uses: actions/checkout@v3
+          with:
+            submodules: recursive
+            fetch-depth: 0
+
+        - name: Install Dependencies
+          run: |
+            brew install kubernetes-cli helm coreutils
+
+        - name: Installation of Rancher Desktop on MacOS
+          run: |
+            rd_install_mac.sh
+
+        - name: Installation of Epinio and push an App
+          run: |
+            ep_install_on_rd.sh
+
+        - name: Uninstall of Epinio
+          run: |
+            ep_uninstall_on_rd.sh
+
+        - name: Uninstall of Rancher Desktop
+          run: |
+            rd_uninstall_on_rd.sh
+
+        - name: Clean all
+          if: ${{ github.event_name == 'schedule' }}
+          uses: colpal/actions-clean@v1

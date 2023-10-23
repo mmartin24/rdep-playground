@@ -60,6 +60,8 @@ if [ "$attempt" -ge "$max_attempts" ]; then
   echo "Kubernetes API unreachable after $max_attempts attempts. Exiting."; exit 5
 fi
 
+echo -e '\n ---------- Sleeping 15 seconds before kubectl check on ready conditions ------------ \n'
+sleep 15
 kubectl wait --for=condition=Ready node --all --timeout=180s
 
 echo -e '\n ---------- Sleeping 40 seconds before further set on rdctl commands ------------ \n'

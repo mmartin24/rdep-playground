@@ -30,12 +30,12 @@ helm upgrade --install --wait epinio -n epinio --create-namespace epinio/epinio 
     --set global.domain=${MYEPINIODOMAIN}.nip.io \
     --set server.disableTracking="true" 
 
-epinio settings update-ca
-
 ## Check it can login
 echo -e '\n ---------- CHECKING EPINIO LOGIN ------------ \n'
 yes | epinio login -u admin -p password "https://epinio.${MYEPINIODOMAIN}.nip.io"
 epinio info
+
+epinio settings update-ca
 
 ## Push sample app
 APPNAME=go-app

@@ -53,7 +53,7 @@ while [ "$attempt" -lt "$max_attempts" ]; do
     echo "K8s API NOT available (Attempt: $attempt/$max_attempts)"
     attempt=$((attempt+1))
   fi
-  sleep 5
+  sleep 2
 done
 
 if [ "$attempt" -ge "$max_attempts" ]; then
@@ -63,9 +63,10 @@ fi
 echo -e '\n ---------- Sleeping 15 seconds before kubectl check on ready conditions ------------ \n'
 sleep 15
 kubectl wait --for=condition=Ready node --all --timeout=180s
+kubectl wait --for=condition=Available --timeout=120s deployments --all -n kube-system
 
 echo -e '\n ---------- Sleeping 40 seconds before further set on rdctl commands ------------ \n'
-sleep 40
+# sleep 40
 echo -e '\n ---------- Applying "--application.path-management-strategy manual..." ------------ \n'
 rdctl set --application.path-management-strategy manual
 echo -e '\n ---------- Applying "--application.path-management-strategy rcfiles..." ------------ \n'

@@ -43,9 +43,12 @@ epinio info
 
 epinio settings update-ca
 
-## Push sample app
-APPNAME=go-app
-epinio push --name $APPNAME --git https://github.com/epinio/example-go,main --env='BP_KEEP_FILES=static/*'
+# ## Push sample app
+# APPNAME=go-app
+# epinio push --name $APPNAME --git https://github.com/epinio/example-go,main --env='BP_KEEP_FILES=static/*'
+
+## Push Jemkins app
+epinio app push --name jenkins --container-image-url jenkins/jenkins
 
 ## Check app returns a 200 otherwise exit
 CURLAPP=$(curl -fkLI "https://${APPNAME}.${MYEPINIODOMAIN}.nip.io")
@@ -57,5 +60,5 @@ if [[ $APPRESPONSE -eq 200 ]]; then
     echo "App pushed ok, request response is '${APPRESPONSE}'"   
 else
     echo "App pushed, but its request response was not 200". Exiting
-    # exit 1
+    exit 1
 fi

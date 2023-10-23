@@ -72,19 +72,19 @@ jobs:
 
       - name: Installation of Rancher Desktop on MacOS
         run: |
-          rd_install_mac.sh
+          ./rd_install_mac.sh
 
       - name: Installation of Epinio and push an App
         run: |
-          ep_install_on_rd.sh
+          ./ep_install_on_rd.sh
 
       - name: Uninstall of Epinio
         run: |
-          ep_uninstall_on_rd.sh
+          ./ep_uninstall_on_rd.sh
 
       - name: Uninstall of Rancher Desktop
         run: |
-          rd_uninstall_on_rd.sh
+          ./rd_uninstall_on_rd.sh
 
       - name: Clean all
         uses: colpal/actions-clean@v1

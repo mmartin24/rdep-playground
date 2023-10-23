@@ -36,7 +36,7 @@ helm upgrade --install epinio -n epinio --create-namespace epinio/epinio \
     --set global.domain=${MYEPINIODOMAIN}.nip.io \
     --set server.disableTracking="true" 
 
-ubectl wait --for=condition=Ready --timeout=180s pods --all -n epinio
+kubectl wait --for=condition=Ready --timeout=180s pods --all -n epinio
 
 ## Check it can login
 echo -e '\n ---------- CHECKING EPINIO LOGIN ------------ \n'

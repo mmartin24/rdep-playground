@@ -68,7 +68,7 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          brew install kubernetes-cli helm coreutils
+          brew install kubernetes-cli helm coreutils go@1.20
 
       - name: Installation of Rancher Desktop on MacOS
         run: |

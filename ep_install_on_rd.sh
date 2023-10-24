@@ -48,27 +48,35 @@ epinio settings update-ca
 
 ## Push sample app
 echo -e '\n ---------- Pushing app ------------ \n'
-APPNAME=go-app
-epinio push --name $APPNAME --git https://github.com/epinio/example-go,main --env='BP_KEEP_FILES=static/*'
+# APPNAME=go-app
+# epinio push --name $APPNAME --git https://github.com/epinio/example-go,main --env='BP_KEEP_FILES=static/*'
 
 # ## Push Jenkins app
-# echo -e '\n ---------- Pushing app ------------ \n'
-# APPNAME=jenkins-app
-# epinio app push --name $APPNAME --container-image-url jenkins/jenkins
+echo -e '\n ---------- Pushing app ------------ \n'
+APPNAME=jenkins-app
+epinio app push --name $APPNAME --container-image-url jenkins/jenkins
 
 echo -e '\n ---------- Waiting for condition available in workspace before curl on app ------------ \n'
 # kubectl wait --for=condition=Available --timeout=120s deployment --all --namespace workspace
-Sleep 40
+# Sleep 40
 
 ## Check app returns a 200 otherwise exit
-CURLAPP=$(curl -fkLI "https://${APPNAME}.${MYEPINIODOMAIN}.nip.io")
-APPRESPONSE=$(echo $CURLAPP 2>/dev/null | head -n 1 | cut -d$' ' -f2)
+CURLAPP=$(curl -k "https://${APPNAME}.${MYEPINIODOMAIN}.nip.io")
+# APPRESPONSE=$(echo $CURLAPP 2>/dev/null | head -n 1 | cut -d$' ' -f2)
+APPRESPONSE=$(echo $CURLAPP 2>/dev/null | grep "Authentication required")
 
 echo $CURLAPP
 
-if [[ $APPRESPONSE -eq 200 ]]; then
-    echo "App pushed ok, request response is '${APPRESPONSE}'"   
+# if [[ $APPRESPONSE -eq 200 ]]; then
+#     echo "App pushed ok, request response is '${APPRESPONSE}'"   
+# else
+#     echo "App pushed, but its request response was not 200". Exiting
+#     exit 1
+# fi
+
+if [ $APPRESPONSE="Authentication required" ]; then
+    echo "App pushed ok, html response is '${APPRESPONSE}'"   
 else
-    echo "App pushed, but its request response was not 200". Exiting
+    echo "App pushed, but its html does not contain 'Authentication required '". Exiting
     exit 1
 fi

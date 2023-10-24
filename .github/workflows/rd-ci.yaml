@@ -84,7 +84,7 @@ jobs:
 
       - name: Uninstall of Rancher Desktop
         run: |
-          ./rd_uninstall_on_rd.sh
+          ./rd_uninstall.sh
 
       - name: Clean all
         uses: colpal/actions-clean@v1

@@ -32,7 +32,7 @@ echo -e '\n ---------- INSTALLING EPINIO ------------ \n'
 helm repo add epinio https://epinio.github.io/helm-charts 
 #MYEPINIODOMAIN=`kubectl get svc -n kube-system traefik | awk '{print $4}' | tail --lines=+2` 
 MYEPINIODOMAIN='127.0.0.1'
-helm upgrade --install --wait epinio -n epinio --create-namespace epinio/epinio \
+helm upgrade --install --wait --timeout=120s epinio -n epinio --create-namespace epinio/epinio \
     --set global.domain=${MYEPINIODOMAIN}.nip.io \
     --set server.disableTracking="true" 
 
@@ -56,7 +56,7 @@ echo -e '\n ---------- Pushing app ------------ \n'
 # APPNAME=jenkins-app
 # epinio app push --name $APPNAME --container-image-url jenkins/jenkins
 APPNAME=empty-app
-# epinio app create $APPNAME
+epinio app create $APPNAME
 
 
 echo -e '\n ---------- Waiting for condition available in workspace before curl on app ------------ \n'

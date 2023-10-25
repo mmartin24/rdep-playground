@@ -86,7 +86,7 @@ APPRESPONSE=$(kubectl get secrets -n workspace | grep $APPNAME )
 # fi
 
 
-if [ $APPRESPONSE="empty-app" ]; then
+if [ $APPRESPONSE="empty-app-config" ]; then
     echo "App created ok'"   
 else
     echo "App not created". Exiting

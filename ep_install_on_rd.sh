@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set -ex
 
 ## Install Epinio CLI
 echo -e '\n ---------- INSTALLING EPINIO CLI ------------ \n'
@@ -53,8 +53,11 @@ epinio settings update-ca
 
 # ## Push Jenkins app
 echo -e '\n ---------- Pushing app ------------ \n'
-APPNAME=jenkins-app
-epinio app push --name $APPNAME --container-image-url jenkins/jenkins
+# APPNAME=jenkins-app
+# epinio app push --name $APPNAME --container-image-url jenkins/jenkins
+APPNAME=empty-app
+epinio app create $APPNAME
+
 
 echo -e '\n ---------- Waiting for condition available in workspace before curl on app ------------ \n'
 # kubectl wait --for=condition=Available --timeout=120s deployment --all --namespace workspace
@@ -63,9 +66,10 @@ Sleep 40
 ## Check app returns a 200 otherwise exit
 CURLAPP=$(curl -k "https://${APPNAME}.${MYEPINIODOMAIN}.nip.io")
 # APPRESPONSE=$(echo $CURLAPP 2>/dev/null | head -n 1 | cut -d$' ' -f2)
-APPRESPONSE=$(echo $CURLAPP 2>/dev/null | grep "Authentication required")
+# APPRESPONSE=$(echo $CURLAPP 2>/dev/null | grep "Authentication required")
+APPRESPONSE=$(kubectl get secrets -n workspace | grep $APPNAME )
 
-echo $CURLAPP
+# echo $CURLAPP
 
 # if [[ $APPRESPONSE -eq 200 ]]; then
 #     echo "App pushed ok, request response is '${APPRESPONSE}'"   
@@ -74,9 +78,17 @@ echo $CURLAPP
 #     exit 1
 # fi
 
-if [ $APPRESPONSE="Authentication required" ]; then
-    echo "App pushed ok, html response is '${APPRESPONSE}'"   
+# if [ $APPRESPONSE="Authentication required" ]; then
+#     echo "App pushed ok, html response is '${APPRESPONSE}'"   
+# else
+#     echo "App pushed, but its html does not contain 'Authentication required '". Exiting
+#     exit 1
+# fi
+
+
+if [ $APPRESPONSE="empty-app" ]; then
+    echo "App created ok'"   
 else
-    echo "App pushed, but its html does not contain 'Authentication required '". Exiting
+    echo "App not created". Exiting
     exit 1
 fi

@@ -72,6 +72,8 @@ jobs:
 
       - name: Installation of Rancher Desktop on MacOS
         run: |
+          export PATH=$HOME/.rd/bin:$PATH
+          export PATH=$PATH:$HOME/Applications/Rancher\ Desktop.app/Contents/Resources/resources/darwin/bin/
           ./rd_install_mac.sh
 
       - name: Installation of Epinio and push an App

@@ -38,6 +38,8 @@ args=(
     )
 echo -e '\n ---------- Applying "rdctl start..." ------------ \n'
 rdctl start "${args[@]}" "$@" &
+echo -e '\n ---------- Sleeping 40 seconds------------ \n'
+sleep 40
 
 # Script to wait for right conditions to be ready prior proceeding with rdctl commands
 echo -e '\n ---------- Checking k8s resources are ready ------------ \n'
@@ -60,7 +62,7 @@ if [ "$attempt" -ge "$max_attempts" ]; then
   echo "Kubernetes API unreachable after $max_attempts attempts. Exiting."; exit 5
 fi
 
-echo -e '\n ---------- Sleeping 15 seconds before kubectl check on ready conditions ------------ \n'
+echo -e '\n ---------- Sleeping 25 seconds before kubectl check on ready conditions ------------ \n'
 sleep 25
 
 kubectl wait --for=condition=Available --timeout=120s deployments --all -n kube-system

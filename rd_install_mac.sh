@@ -38,34 +38,34 @@ args=(
     )
 echo -e '\n ---------- Applying "rdctl start..." ------------ \n'
 rdctl start "${args[@]}" "$@" &
-echo -e '\n ---------- Sleeping 40 seconds------------ \n'
-sleep 40
+echo -e '\n ---------- Sleeping 120 seconds------------ \n'
+sleep 120
 
 # Script to wait for right conditions to be ready prior proceeding with rdctl commands
-echo -e '\n ---------- Checking k8s resources are ready ------------ \n'
-max_attempts=200
-attempt=0
-K8S_API_EP=https://127.0.0.1:6443
+# echo -e '\n ---------- Checking k8s resources are ready ------------ \n'
+# max_attempts=200
+# attempt=0
+# K8S_API_EP=https://127.0.0.1:6443
 
-while [ "$attempt" -lt "$max_attempts" ]; do
-  if curl -Isk $K8S_API_EP | head -n 1 | grep -q "401"; then
-    echo "K8s API is available"
-    break
-  else
-    echo "K8s API NOT available (Attempt: $attempt/$max_attempts)"
-    attempt=$((attempt+1))
-  fi
-  sleep 2
-done
+# while [ "$attempt" -lt "$max_attempts" ]; do
+#   if curl -Isk $K8S_API_EP | head -n 1 | grep -q "401"; then
+#     echo "K8s API is available"
+#     break
+#   else
+#     echo "K8s API NOT available (Attempt: $attempt/$max_attempts)"
+#     attempt=$((attempt+1))
+#   fi
+#   sleep 2
+# done
 
-if [ "$attempt" -ge "$max_attempts" ]; then
-  echo "Kubernetes API unreachable after $max_attempts attempts. Exiting."; exit 5
-fi
+# if [ "$attempt" -ge "$max_attempts" ]; then
+#   echo "Kubernetes API unreachable after $max_attempts attempts. Exiting."; exit 5
+# fi
 
-echo -e '\n ---------- Sleeping 25 seconds before kubectl check on ready conditions ------------ \n'
-sleep 25
+# echo -e '\n ---------- Sleeping 25 seconds before kubectl check on ready conditions ------------ \n'
+# sleep 25
 
-kubectl wait --for=condition=Available --timeout=120s deployments --all -n kube-system
+# kubectl wait --for=condition=Available --timeout=120s deployments --all -n kube-system
 
 
 ##

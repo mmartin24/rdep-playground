@@ -32,11 +32,11 @@ echo -e '\n ---------- INSTALLING EPINIO ------------ \n'
 helm repo add epinio https://epinio.github.io/helm-charts 
 #MYEPINIODOMAIN=`kubectl get svc -n kube-system traefik | awk '{print $4}' | tail --lines=+2` 
 MYEPINIODOMAIN='127.0.0.1'
-helm upgrade --install --wait --timeout=120s epinio -n epinio --create-namespace epinio/epinio \
+helm upgrade --install --wait --timeout=480s epinio -n epinio --create-namespace epinio/epinio \
     --set global.domain=${MYEPINIODOMAIN}.nip.io \
     --set server.disableTracking="true" 
 
-#kubectl wait --for=condition=Ready --timeout=180s pods --all -n epinio
+kubectl wait --for=condition=Ready --timeout=180s pods --all -n epinio
 #sleep 60
 
 ## Check it can login

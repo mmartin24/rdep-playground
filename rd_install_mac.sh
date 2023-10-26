@@ -34,7 +34,8 @@ args=(
         --kubernetes.enabled=true
         --application.admin-access=false
         --application.path-management-strategy rcfiles
-        --virtual-machine.memory-in-gb 6   
+        --virtual-machine.memory-in-gb 6
+        --virtual-machine.number-cpus 4      
     )
 echo -e '\n ---------- Applying "rdctl start..." ------------ \n'
 rdctl start "${args[@]}" "$@" &

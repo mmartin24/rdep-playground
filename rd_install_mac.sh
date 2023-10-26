@@ -82,8 +82,11 @@ sleep 120
 
 # K8S_API_EP=https://127.0.0.1:6443
 # retry "curl -Isk $K8S_API_EP | head -n 1 | grep -q '401'" 200 2
-# retry 'kubectl wait --for=condition=Ready --timeout=120s nodes --all' 10 5
-# retry 'kubectl wait --for=condition=Available --timeout=120s deployments --all -n kube-system' 10 5
+# retry "kubectl wait --for=condition=Ready --timeout=120s nodes --all" 10 5
+# retry "kubectl wait --for=condition=Available --timeout=120s deployments --all -n kube-system" 10 5
+
+kubectl wait --for=condition=Ready --timeout=120s nodes --all
+kubectl wait --for=condition=Available --timeout=120s deployments --all -n kube-system
 ##
 
 echo -e '\n ---------- Sleeping 40 seconds before further set on rdctl commands ------------ \n'

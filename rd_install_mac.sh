@@ -38,8 +38,8 @@ args=(
     )
 echo -e '\n ---------- Applying "rdctl start..." ------------ \n'
 rdctl start "${args[@]}" "$@" &
-echo -e '\n ---------- Sleeping 120 seconds------------ \n'
-sleep 120
+echo -e '\n ---------- Sleeping 480 seconds------------ \n'
+sleep 480
 
 # Script to wait for right conditions to be ready prior proceeding with rdctl commands
 # echo -e '\n ---------- Checking k8s resources are ready ------------ \n'
